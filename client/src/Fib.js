@@ -16,6 +16,7 @@ const Fib = () => {
   const fetchValues = async () => {
     try {
       const values = await axios.get('/api/values/current');
+      console.log(values)
       setState({ values: values.data });
     } catch (error) {
       console.log(error);
@@ -47,8 +48,13 @@ const Fib = () => {
   };
 
   const renderSeenIndexes = () => {
-    return state.seenIndexes.map(({ number }) => number).join(', ');
+    if (state.seenIndexes && state.seenIndexes.length > 0) {
+      return state.seenIndexes.map(({ number }) => number).join(', ');
+    } else {
+      return "No indexes seen yet.";
+    }
   };
+  
 
   const renderValues = () => {
     const entries = [];
@@ -68,7 +74,7 @@ const Fib = () => {
       <form onSubmit={handleSubmit}>
         <label>Enter your index:</label>
         <input
-          value={state.index}
+          value={state?.index}
           onChange={(event) => setState({ index: event.target.value })}
         />
         <button>Submit</button>
