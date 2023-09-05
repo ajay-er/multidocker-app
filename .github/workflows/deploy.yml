@@ -33,7 +33,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: ./${{ matrix.app }}
-          file: ./Dockerfile
+          file: ./${{ matrix.app }}/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ matrix.app }}:latest
 
